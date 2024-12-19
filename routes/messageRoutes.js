@@ -54,64 +54,64 @@ router.get("/messages/:senderId", async (req, res) => {
   }
 });
 
-// router.post('/post', async (req, res) => {
-//   try {
-//     const { body, currentContact, myContact } = req.body;
+router.post('/post', async (req, res) => {
+  try {
+    const { body, currentContact, myContact } = req.body;
 
-//     if (!body || !currentContact || !myContact) {
-//       return res.status(400).send("Missing required fields: body, currentContact, or myContact.");
-//     }
+    if (!body || !currentContact || !myContact) {
+      return res.status(400).send("Missing required fields: body, currentContact, or myContact.");
+    }
 
-//     const timestamp = Date.now();  
-//     const datemessage = Math.floor(timestamp / 1000); 
+    const timestamp = Date.now();  
+    const datemessage = Math.floor(timestamp / 1000); 
 
-//     const newMessage = new Message({
-//       _data: {
-//         id: {
-//           fromMe: true, 
-//           remote: currentContact,
-//           id: `${timestamp}_${Math.random().toString(36).substr(2, 9)}`,
-//           _serialized: `true_${currentContact}_${timestamp}`
-//         },
-//         viewed: false,
-//         body,
-//         type: "chat",
-//         t: datemessage,  
-//         notifyName: "You",
-//         from: myContact,
-//         to: currentContact,
-//         ack: 1,
-//         isNewMsg: true,
-//         star: false,
-//         recvFresh: true,
-//         viewMode: "VISIBLE",
-//         timestamp  
-//       },
-//       id: { 
-//         fromMe: true, 
-//         remote: currentContact,
-//         id: `${timestamp}_${Math.random().toString(36).substr(2, 9)}`,
-//         _serialized: `true_${currentContact}_${timestamp}`
-//       },
-//       ack: 1,
-//       hasMedia: false,
-//       body,
-//       type: "chat",
-//       timestamp,  
-//       from: myContact,
-//       to: currentContact,
-//       deviceType: "web",
-//       hasReaction: false,
-//       links: []
-//     });
+    const newMessage = new Message({
+      _data: {
+        id: {
+          fromMe: true, 
+          remote: currentContact,
+          id: `${timestamp}_${Math.random().toString(36).substr(2, 9)}`,
+          _serialized: `true_${currentContact}_${timestamp}`
+        },
+        viewed: false,
+        body,
+        type: "chat",
+        t: datemessage,  
+        notifyName: "You",
+        from: myContact,
+        to: currentContact,
+        ack: 1,
+        isNewMsg: true,
+        star: false,
+        recvFresh: true,
+        viewMode: "VISIBLE",
+        timestamp  
+      },
+      id: { 
+        fromMe: true, 
+        remote: currentContact,
+        id: `${timestamp}_${Math.random().toString(36).substr(2, 9)}`,
+        _serialized: `true_${currentContact}_${timestamp}`
+      },
+      ack: 1,
+      hasMedia: false,
+      body,
+      type: "chat",
+      timestamp,  
+      from: myContact,
+      to: currentContact,
+      deviceType: "web",
+      hasReaction: false,
+      links: []
+    });
 
-//     await newMessage.save();
-//     console.log("Message saved:", newMessage);
-//     res.redirect("http://localhost:3003");
-//   } catch (error) {
-//     console.error("Error saving message:", error);
-//     res.status(500).send("Internal server error");
-//   }
-// });
+    await newMessage.save();
+    console.log("Message saved:", newMessage);
+    res.redirect("https://vercel-deploy-pweb.vercel.app/");
+  } catch (error) {
+    console.error("Error saving message:", error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;
