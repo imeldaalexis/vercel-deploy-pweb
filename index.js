@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const app = express();
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const messageRoutes = require('./routes/messageRoutes');
 
 const PORT = process.env.PORT
