@@ -106,7 +106,8 @@ router.post('/post', async (req, res) => {
         to: currentContact,
         deviceType: "web",
         hasReaction: false,
-        links: []
+        links: [],
+        fromMe: true
       });
   
       // Save the new message to the database
