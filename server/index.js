@@ -7,7 +7,6 @@ const app = express();
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const messageRoutes = require('./routes/messageRoutes');
 
-
 const PORT = process.env.PORT
 console.log(PORT);
 
@@ -18,19 +17,19 @@ app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', messageRoutes);
 
-const mongoURI = process.env.MONGO_URI
+const mongoURI = "mongodb://imeldaalexisjbaru:1Gh8Y4DxDNf8GB47@cluster0-shard-00-00.g70d8.mongodb.net:27017,cluster0-shard-00-01.g70d8.mongodb.net:27017,cluster0-shard-00-02.g70d8.mongodb.net:27017/chatAppRevisi?replicaSet=atlas-9d8ugm-shard-0&ssl=true&authSource=admin"
 console.log(mongoURI);
-//mongodb+srv://imeldaalexisj:surabaya@clusterFP.eoltm.mongodb.net/chatAppRevisi?authSource=admin&compressors=zlib&retryWrites=true&w=majority&ssl=true
 
 mongoose.connect(mongoURI)
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
   .catch(err => console.error("MongoDB connection error:", err));
 
 const db = mongoose.connection;
-db.once('open', () => {
-  console.log('Connected to MongoDB');
+db.once('open', () => { //maybe add chatAppRevisi here?
+  console.log('Connected to MongoDB database chatAppRevisi');
 });
-
 
 app.get('/', async(req, res) => {
   return res.status(200).send("Successful");

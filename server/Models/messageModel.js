@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema(
   {
-    _id: { type: mongoose.Schema.Types.ObjectId, required: true },
     _data: {
       id: {
-        fromMe: { type: Boolean, required: true },
-        remote: { type: String, required: true },
-        id: { type: String, required: true },
-        _serialized: { type: String, required: true }
+        fromMe: { type: Boolean},
+        remote: { type: String},
+        id: { type: String},
+        _serialized: { type: String}
       },
       viewed: { type: Boolean, default: false },
       body: { type: String, required: true },
