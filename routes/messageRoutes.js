@@ -1,10 +1,18 @@
 const express = require('express');
 const Message = require('../Models/messageModel.js');  // Import the Message model
+const path = require('path'); 
 const router = express.Router();
 
 //init app and middleware
 const app = express()
 app.use(express.json());
+
+// // Serve static files from the "public" directory
+// app.use(express.static(path.join(__dirname, 'FrontEnd')));
+
+// // Serve index.html when accessing the root ("/") URL
+
+
 
 router.get("/messages", async (req, res) => {
   try {

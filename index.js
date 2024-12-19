@@ -7,13 +7,15 @@ const path = require('path');
 const app = express();
 const messageRoutes = require('./routes/messageRoutes');
 
-const PORT = process.env.PORT
+// const PORT = process.env.PORT || 3003;
+const PORT = 3003;
 console.log(PORT);
 
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'FrontEnd')));
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', messageRoutes);
 
@@ -31,9 +33,12 @@ db.once('open', () => { //maybe add chatAppRevisi here?
   console.log('Connected to MongoDB database chatAppRevisi');
 });
 
-app.get('/', async(req, res) => {
-  return res.status(200).send("Successful");
-})
+// app.get('/', async(req, res) => {
+//   return res.status(200).send("Successful");
+// })
+app.get("/", async(req, res) => {
+  res.sendFile(path.join(__dirname, 'FrontEnd', 'index_coba.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
