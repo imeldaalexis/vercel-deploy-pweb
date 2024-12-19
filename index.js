@@ -1,11 +1,14 @@
 
 //test
+require("dotenv".config())
 const express = require('express');
 const mongoose = require('mongoose');
+const Grid = require('gridfs-stream');
 const cors = require('cors');
 const path = require('path');
 const app = express();
 const messageRoutes = require('./routes/messageRoutes');
+const uploadRoutes = require("./routes/uploadRoutes");
 
 // const PORT = process.env.PORT || 3003;
 const PORT = 3003;
@@ -28,10 +31,23 @@ mongoose.connect(mongoURI)
   })
   .catch(err => console.error("MongoDB connection error:", err));
 
+let gfs
 const db = mongoose.connection;
 db.once('open', () => { //maybe add chatAppRevisi here?
   console.log('Connected to MongoDB database chatAppRevisi');
+  gfs = Grid(db.db, mongoose.mongo);
+  gfs.collection("photos");
 });
+
+app.get("file/:filename", async(req, res) =>{
+  try {
+    const file = await gfs.files.findOne({filename: req.params.filename});
+    const readStream = gfs.createReadStream(file.filename);
+    readStream.pipe(res)
+  } catch (error) {
+    res.send('not found')
+  }
+})
 
 // app.get('/', async(req, res) => {
 //   return res.status(200).send("Successful");
